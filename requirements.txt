@@ -1,0 +1,8 @@
+playwright
+Langchain
+ollama
+langchain_core
+langchain_community
+Langchain_ollama
+Langchain_community
+chromadb
