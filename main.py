@@ -57,12 +57,25 @@ async def login():
             like = page.locator('//button[@data-testid="like"]')
             print("like button found")
             
+            reply = page.locator('//button[@data-testid="reply"]')
+            print("reply button found")
+            
+            tweet_box = page.locator("(//div[@data-testid='tweetTextarea_0'])")
+            
             for i in range(3):
             
                 await asyncio.sleep(1)
                 
                 await like.nth(i).click()
                 print("like button clicked")
+                
+                await reply.nth(i).click()
+                await asyncio.sleep(1)
+                await tweet_box.click()
+                print("reply section found")
+                
+               
+                
                 
                 await page.evaluate("window.scrollBy(0, 300)")
             
