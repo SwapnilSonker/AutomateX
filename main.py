@@ -8,8 +8,6 @@ load_dotenv()
 usernameX = os.getenv("usernameX")
 passwordX = os.getenv("passwordX")
 
-print(usernameX)
-print(passwordX)
 async def login():
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=False, args=['--start-maximized'], slow_mo=1000)
@@ -60,7 +58,7 @@ async def login():
             reply = page.locator('//button[@data-testid="reply"]')
             print("reply button found")
             
-            tweet_box = page.locator("(//div[@data-testid='tweetTextarea_0'])")
+            
             
             for i in range(3):
             
@@ -71,10 +69,16 @@ async def login():
                 
                 await reply.nth(i).click()
                 await asyncio.sleep(1)
-                await tweet_box.click()
-                print("reply section found")
                 
-               
+                tweet_box = page.locator('(//div[@data-testid="tweetTextarea_0" and @aria-describedby="placeholder-11q5c"])')
+                await tweet_box.wait_for(timeout=60000)  # Wait up to 5 seconds
+                await tweet_box.click()
+                print("tweet section found")
+                
+                # await tweet_box.fill("Hii")
+                await asyncio.sleep(1)
+                await tweet_box.type("hii test comment", delay=100)
+                await asyncio.sleep(10)
                 
                 
                 await page.evaluate("window.scrollBy(0, 300)")
